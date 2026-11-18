@@ -176,3 +176,41 @@ attachment. Paths are relative to that extracted attachment. `ImageEncoder(weigh
 The provided optional causal switch preserves later text-tower compatibility.
 The final project still supplies the full image/text checkpoint and tokenizer.
 Do not substitute these image-only weights for the full multimodal checkpoint.
+
+## Completed state of this submission
+
+All six TODO groups in `image_encoder.py` are implemented and
+`python check.py --stage all` passes every stage. Measured absolute errors
+against the independent FP32 reference:
+
+| Stage | Shape | max_abs | mean_abs | Tolerance |
+| --- | --- | --- | --- | --- |
+| preprocess | (10,3,224,224) | 0 | 0 | atol 2e-6 |
+| patches | (2,49,3072) | 0 | 0 | atol 2e-4 |
+| tokens | (2,50,768) | 4.387e-05 | 1.335e-06 | atol 2e-4 |
+| block0 | (2,50,768) | 7.147e-06 | 3.348e-07 | atol 2e-4 |
+| last_tokens | (2,50,768) | 4.196e-05 | 2.633e-06 | atol 2e-4 |
+| output | (10,512) | 5.662e-07 | 8.688e-08 | atol 2e-5 |
+| batch | (3,512) | 4.061e-07 | 7.848e-08 | atol 2e-5 |
+
+The saved output has unit length (`max |norm-1| = 2.4e-07`) and the `batch`
+stage confirms the encoder ignores batch order and duplicates.
+
+Two supplied files are deliberately **not** tracked by git: they are large and
+the assignment says not to resubmit them.
+
+- `weights/image_encoder.npz` (311 MB, above GitHub's 100 MB limit)
+- `assets/reference_outputs.npz` (7.3 MB of reference arrays)
+
+To reproduce locally, copy both from the course attachment to the same
+relative paths. Nothing else changes:
+
+```bash
+python -m pip install -r requirements.txt
+python check.py --stage all
+python run.py --output output_tokens.npz
+```
+
+`run.py` writes image IDs and the `[B,512]` float32 rows in input order.
+The separate lab report (PDF/DOCX, <=5 body pages) is submitted outside the
+repository.
