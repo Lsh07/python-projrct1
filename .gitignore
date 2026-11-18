@@ -1,0 +1,19 @@
+# Generated outputs
+output_tokens.npz
+*.npz.tmp
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Large supplied parameters (311 MB, exceeds GitHub's 100 MB file limit).
+# Obtain weights/image_encoder.npz from the course attachment; see README.md.
+weights/image_encoder.npz
+
+# Local tooling
+.tmp/
+.pip-cache/
+vendor/
+
+# Supplied reference arrays: obtain with the course attachment, do not resubmit
+assets/reference_outputs.npz
