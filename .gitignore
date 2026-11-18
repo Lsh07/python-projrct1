@@ -10,10 +10,15 @@ __pycache__/
 # Obtain weights/image_encoder.npz from the course attachment; see README.md.
 weights/image_encoder.npz
 
+# Supplied reference arrays: obtain with the course attachment, do not resubmit
+assets/reference_outputs.npz
+
+# Lab report (submitted separately, contains personal details)
+实验2-报告.docx
+实验2-报告.pdf
+实验2-报告模板.doc
+
 # Local tooling
 .tmp/
 .pip-cache/
 vendor/
-
-# Supplied reference arrays: obtain with the course attachment, do not resubmit
-assets/reference_outputs.npz
